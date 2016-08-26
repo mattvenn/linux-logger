@@ -1,0 +1,117 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "CPU %",
+						"value": "datasources[\"linux\"][0][\"cpu_percent\"]",
+						"min_value": 0,
+						"max_value": 100
+					}
+				},
+				{
+					"type": "sparkline",
+					"settings": {
+						"title": "cpu usage %",
+						"value": [
+							"datasources[\"linux-historic\"][\"cpu_percent\"]"
+						]
+					}
+				},
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "memory usage %",
+						"value": "datasources[\"linux\"][0][\"memory_percent\"]",
+						"min_value": 0,
+						"max_value": 100
+					}
+				},
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "disk usage %",
+						"value": "datasources[\"linux\"][0][\"disk_percent\"]",
+						"min_value": 0,
+						"max_value": 100
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "cpu temp",
+						"value": "datasources[\"linux\"][0][\"cpu_temp\"]",
+						"units": "C",
+						"min_value": 0,
+						"max_value": 100
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "running processes",
+						"size": "big",
+						"value": "datasources[\"linux\"][0][\"processes\"]",
+						"animate": true
+					}
+				},
+				{
+					"type": "text_widget",
+					"settings": {
+						"title": "uptime",
+						"size": "big",
+						"value": "secs = parseInt(datasources[\"linux\"][\"0\"][\"uptime\"]);\nhours = secs / 3600;\nreturn Math.round(hours);",
+						"animate": true,
+						"units": "hours"
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+		{
+			"name": "linux",
+			"type": "JSON",
+			"settings": {
+				"url": "http://phant.cursivedata.co.uk/output/6ezAXjd3MDIq2e4N8YEdi4NL9x4.json?limit=1",
+				"use_thingproxy": true,
+				"refresh": 60,
+				"method": "GET"
+			}
+		},
+		{
+			"name": "linux-historic",
+			"type": "playback",
+			"settings": {
+				"datafile": "http://phant.cursivedata.co.uk/output/6ezAXjd3MDIq2e4N8YEdi4NL9x4?limit=144&sample=2",
+				"refresh": 0.01
+			}
+		}
+	],
+	"columns": 3
+}
